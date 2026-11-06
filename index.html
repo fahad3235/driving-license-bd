@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Driving Licence BD</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>Driving Licence BD</h1>
+    <p id="subtitle" class="sub"></p>
+    <button id="lang-toggle" class="btn-ghost" type="button">Bangla</button>
+  </div>
+</header>
+
+<nav id="tabs" class="tabs wrap" aria-label="Sections">
+  <button id="tab-fees" data-tab="fees" type="button" class="active">Fees</button>
+  <button id="tab-steps" data-tab="steps" type="button">Steps</button>
+  <button id="tab-cats" data-tab="cats" type="button">Categories</button>
+  <button id="tab-check" data-tab="check" type="button">Checklists</button>
+  <button id="tab-track" data-tab="track" type="button">My Licences</button>
+  <button id="tab-quiz" data-tab="quiz" type="button">Quiz</button>
+  <button id="tab-data" data-tab="data" type="button">Data</button>
+</nav>
+
+<main class="wrap">
+  <!-- Fees -->
+  <section id="panel-fees" class="panel active">
+    <h2 id="fee-title">Fee calculator</h2>
+    <div class="card">
+      <label id="fee-type-label" for="fee-type">Fee type</label>
+      <select id="fee-type"></select>
+      <div id="late-wrap" hidden>
+        <label id="fee-late-label" for="late-years">Years late (renewal only)</label>
+        <input id="late-years" type="number" min="0" max="10" step="1" value="0">
+        <p id="fee-late-hint" class="hint"></p>
+      </div>
+      <p class="total"><span id="fee-total-label">Total fee</span>: <strong id="fee-amount"></strong></p>
+      <p><span id="fee-note-label">Note</span>: <span id="fee-note"></span></p>
+      <p id="fee-verify" class="hint"></p>
+    </div>
+    <h3 id="chart-title">Full fee chart</h3>
+    <p id="chart-hint" class="hint"></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th id="th-type">Fee type</th><th id="th-fee">Fee (BDT)</th><th id="th-note">Note</th></tr></thead>
+        <tbody id="chart-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section id="panel-steps" class="panel">
+    <h2 id="steps-title">How to get a licence</h2>
+    <ol id="steps-list" class="steps"></ol>
+    <ul id="notes-list" class="notes"></ul>
+  </section>
+
+  <!-- Categories -->
+  <section id="panel-cats" class="panel">
+    <h2 id="cats-title">Licence categories</h2>
+    <div id="cats-list" class="cats"></div>
+  </section>
+
+  <!-- Checklists -->
+  <section id="panel-check" class="panel">
+    <h2 id="check-title">Document checklists</h2>
+    <p id="check-type-label">Application type</p>
+    <div id="check-types" class="seg"></div>
+    <div id="checklist-list" class="checklist"></div>
+    <p id="check-progress" class="progress"></p>
+    <div class="bar"><div id="overall-bar" class="bar-fill"></div></div>
+    <p id="check-overall" class="progress"></p>
+  </section>
+
+  <!-- Tracker -->
+  <section id="panel-track" class="panel">
+    <h2 id="track-title">My licences</h2>
+    <form id="add-licence-form" class="card" novalidate>
+      <label id="lbl-label" for="l-label">Label</label>
+      <input id="l-label" type="text" maxlength="60" autocomplete="off">
+      <p id="err-label" class="err" hidden></p>
+      <label id="lbl-type" for="l-type">Licence type</label>
+      <select id="l-type"></select>
+      <p id="err-type" class="err" hidden></p>
+      <label id="lbl-issue" for="l-issue">Issue date</label>
+      <input id="l-issue" type="date">
+      <p id="err-issue" class="err" hidden></p>
+      <label id="lbl-expiry" for="l-expiry">Expiry date</label>
+      <input id="l-expiry" type="date">
+      <p id="err-expiry" class="err" hidden></p>
+      <p id="err-order" class="err" hidden></p>
+      <button id="add-licence" class="btn-primary" type="submit">Add licence</button>
+    </form>
+    <p id="tracker-empty" class="empty" hidden></p>
+    <div id="licence-list" class="licences"></div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="panel-quiz" class="panel">
+    <h2 id="quiz-title">Practice quiz</h2>
+    <p id="quiz-intro"></p>
+    <p id="quiz-best" class="progress"></p>
+    <div id="quiz-area" class="card"></div>
+  </section>
+
+  <!-- Data -->
+  <section id="panel-data" class="panel">
+    <h2 id="data-title">Your data</h2>
+    <div class="card">
+      <h3 id="data-export">Export data (JSON)</h3>
+      <p id="data-export-note"></p>
+      <button id="export-btn" class="btn-primary" type="button">Export</button>
+    </div>
+    <div class="card">
+      <h3 id="data-import">Import data (JSON)</h3>
+      <p id="data-import-label"></p>
+      <input id="import-file" type="file" accept=".json,application/json" hidden>
+      <button id="import-btn" class="btn-primary" type="button">Import file</button>
+    </div>
+    <div class="card danger">
+      <h3 id="data-erase">Erase all data</h3>
+      <p id="data-erase-hint"></p>
+      <input id="erase-input" type="text" autocomplete="off">
+      <button id="erase-btn" class="btn-danger" type="button">Erase everything</button>
+    </div>
+    <p id="data-msg" class="msg" hidden></p>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p id="foot-disc"></p>
+  <p id="foot-verify"></p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
